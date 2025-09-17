@@ -51,7 +51,7 @@ class CoffeeJournal:
         self._stars = new_stars
 
     def save(self):
-        with open(self._file, 'a', newline=''):
+        with open(self._file, 'a', newline='') as f:
             writer = csv.writer(f)
             writer.writerows(self._new_coffee)
 
