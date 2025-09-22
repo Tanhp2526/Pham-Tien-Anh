@@ -57,7 +57,7 @@ run = True
 polygon = Polygon((200, 200), 140, window, 8, (255, 19, 30))
 
 while run:
-    pygame.time.delay(100)
+    
     window.fill((55, 55, 55))
 
     for event in pygame.event.get():
@@ -66,5 +66,5 @@ while run:
 
     polygon.draw()
     pygame.display.update()
-
+    clock.tick(30)
 pygame.quit()
