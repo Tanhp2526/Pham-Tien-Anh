@@ -21,16 +21,16 @@ class TextAnalyzer(object):
         
 string = "Lorem ipsum dolor! diam amet, consetetur Lorem magna. sed diam nonumy eirmod tempor. diam et labore? et diam magna. et diam amet."
 
-# Tạo object từ class
+
 analyzer = TextAnalyzer(string)
 
-# Task 2: tần suất tất cả từ
+
 print("Tần suất tất cả từ:")
 print(analyzer.freAll())
 
-# Task 3: tần suất 1 từ cụ thể
+
 print("\nTần suất từ 'diam':", analyzer.freOf("diam"))
 print("Tần suất từ 'lorem':", analyzer.freOf("lorem"))
-print("Tần suất từ 'hello':", analyzer.freOf("hello"))  # từ không tồn tại
+print("Tần suất từ 'hello':", analyzer.freOf("hello"))  
 
 
