@@ -7,6 +7,8 @@ data = {"Student" : ["David", "Samuel", "Terry", "Evan"],
         "Marks" : [85, 72, 89, 76]}
 
 df = pd.DataFrame(data)
-b = df["Marks"]
-c = df[["Country", "Course"]]
-print(c)
+#b = df["Marks"]
+#c = df[["Country", "Course"]]
+#print(c)
+#df.to_csv("pandas_test.csv", index = False)
+#print(df.describe())
