@@ -30,6 +30,9 @@ class LinkedList:
         while current != None and current.data != key:
             prev = current 
             current = current.next 
+
+        if current is None:
+            return
         
         prev.next = current.next
 

@@ -1,3 +1,4 @@
+# chen vao dau
 class Node:
     def __init__(self, data):
         self.data = data
