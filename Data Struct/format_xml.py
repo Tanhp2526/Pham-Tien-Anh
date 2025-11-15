@@ -25,7 +25,7 @@ root = tree.getroot()
 
 columns = ["firstname", "lastname", "age"]
 
-#khoi tao 1 datafram trong
+#khoi tao 1 dataframe trong
 dataframe = pd.DataFrame(columns=columns)
 
 #lap lai qua tung node 
