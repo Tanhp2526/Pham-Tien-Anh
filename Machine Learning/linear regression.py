@@ -59,7 +59,7 @@ plt.xlabel('Size (1000 sqft)')
 plt.legend()
 
 
-#dự đoán giá nhà x = 1.2
+#dự đoán giá nhà với 1200 feet^2 
 x_i = 1.2
 cost_1200sqft = w * x_i + b
 

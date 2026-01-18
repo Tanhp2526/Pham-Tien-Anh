@@ -55,4 +55,5 @@ for w in w_range:
     cost_values.append(res)
 
 plt.plot(w_range, cost_values)
+plt.xlabel("w")
 plt.show()
