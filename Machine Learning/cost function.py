@@ -1,6 +1,6 @@
 import numpy as np
 import matplotlib.pyplot as plt
-
+from mpl_toolkits.mplot3d import Axes3D
 
 x_train = np.array([1.0, 2.0]) # diện tích nhà(đơn vị: 1000 sqft)
 y_train = np.array([300.0, 500.0])# giá nhà(đơn vị: 1000 đô la)
@@ -56,4 +56,48 @@ for w in w_range:
 
 plt.plot(w_range, cost_values)
 plt.xlabel("w")
+plt.ylabel("J(w,b)")
+plt.title("Cost Function")
+plt.show()
+
+# tính cost
+w_test = 200
+b_test = 100
+cost = compute_cost(x_train, y_train, w_test, b_test)
+
+print(f"Cost tại w={w_test}, b={b_test} là: {cost}")
+
+#vẽ 3D
+# tạo lưới giữa w và b
+w_values = np.linspace(0, 300, 100)
+b_values = np.linspace(0, 300, 100)
+w, b = np.meshgrid(w_values, b_values)
+
+#tính cost cho mỗi (w,b)
+J = np.zeros(w.shape)
+for i in range(w.shape[0]):
+    for j in range(w.shape[1]):
+        J[i,j] = compute_cost(x_train,y_train, w[i,j], b[i,j])
+
+#vẽ 
+fig = plt.figure(figsize=(10, 7))
+ax = fig.add_subplot(111, projection='3d')
+
+surface = ax.plot_surface(w, b, J, cmap='viridis', alpha=0.8)
+
+ax.set_xlabel('w (weight)')
+ax.set_ylabel('b (bias)')
+ax.set_zlabel('Cost J(w, b)')
+ax.set_title('Cost Function Surface (Linear Regression)')
+
+fig.colorbar(surface, shrink=0.5, aspect=10)
+plt.show()
+
+# 6. VẼ CONTOUR (NHÌN TỪ TRÊN)
+# =============================
+plt.figure(figsize=(7, 6))
+plt.contour(w, b, J, levels=50)
+plt.xlabel('w')
+plt.ylabel('b')
+plt.title('Cost Function Contours')
 plt.show()
