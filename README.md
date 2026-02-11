@@ -13,9 +13,7 @@
 - Nhãn mỗi bức ảnh hiển thị phía trên ảnh.
 ## Model representation(Biểu diễn mô hình)
 
-Triển khai mô hình TensorFlow
-Gồm 3 lớp layer: 
-
+Triển khai mô hình TensorFlow. Gồm 3 lớp layer: 
 - Layer1: units = 25, kích thước W1(400, 25), b1(25,); activation = 'relu'
 - Layer2: units = 15, kích thước W2(25,15) , b2(15,); activation = 'relu'
 - Layer3(Output layer): units = 10, actiovation = 'softmax'
@@ -25,6 +23,45 @@ Training model: `Machine Learning/ Advanced Learning Algorithms/practice2.py`
 - Sau khi ta đã traing model có thể dự đoán bức ảnh đó là số nào bằng cách sử dụng use Keras predict.
 
 # 2. Image compression with K-means
+## Problem Statement(Mô tả bài toán)
+- Một bức ảnh RGB được biểu diễn bởi 24-bit, mỗi pixel được biểu diễn bởi 3 số nguyên không dấu 8-bit(giá trị từ 0-255), tương ứng với 3 cường độ màu(RGB): đỏ(red), xanh lá(green), xanh dương(blue).
+- Ta sẽ giảm số lượng màu xuống còn 16 màu bằng thuật toán K-means để biểu diễn ảnh sau khi nén.
+- Cụ thể hơn, ta sẽ xem mỗi pixel trong ảnh gốc như một mẫu dữ liệu và sử dụng thuật toán K-means để tìm ra 16 màu có khả năng nhóm các pixel tốt nhất trong không gian RGB ba chiều.
+##  Dataset(Tập dữ liệu)
+Ảnh đầu vào: `bird_small.png`.
+
+Kích thước ảnh: 128 x 128 x 3.
+
+-128: số hàng pixel(chiều cao ảnh).
+-128: số cột pixel(chiều rộng ảnh).
+-3: số kênh màu (R,G,B).
+
+Chuyển đổi dữ liệu: 
+
+- Vì ma trận đầu vào thuật toán K-means là ma trận 2D, nên ta phải chuyển đổi ảnh gốc thành ma trận 2D.
+- Ảnh gốc 3D: `original_img` có shape(128,128,3).
+- Trải phẳng thành ma trận 2D có shape(m,3) trong đó m = 128 x 128.
+- Mỗi hàng của `X_img` là một pixel với 3 đặc trưng(R,G,B).
+
+## K-means Clustering(Phân cụm K-Means)
+Số cụm màu: K = 16(ảnh sau khi nén chỉ còn 16 màu khác nhau).
+
+Khởi tạo centroid(tâm cụm): chọn ngẫu nhiên K điểm từ `X_img` làm tâm cụm ban đầu bằng hàm `kMeans_init_centroids(X, K)`.
+
+Gán cụm: gán các pixel vào các tâm cụm gần nhất bằng hàm `find_closest_centroids(X,centroids)`.
+
+Với mỗi cụm k, lấy trung bình tất cả pixel được gán vào cụm đó để tạo centroid mới uk.
+
+Sau khi chạy thuật toán và lặp đi lặp lại, ta quan sát được ảnh sau khi nén có ít màu hơn nhưng vẫn giữ được nội dung và cấu trúc chính của bức ảnh. `K-means lab.py`
+
+
+
+
+
+
+
+
+
 
 # Python Learning 
 Chủ đề em đã làm
@@ -57,7 +94,7 @@ Chủ đề em đã làm
 - Phương thức head() : hiển thị số lượng hàng đã đề cập của Dataframe
 - Phương thức mean() : tính giá trị trung bình 
 
-- REST API : 
+## REST API : 
 * là cách để máy tính hoặc chương trình trao đổi dữ liệu thông qua Internet
 
 * Thông tin được gửi và nhận thông qua HTTP, mỗi lần trao đổi gồm 2 phần:
