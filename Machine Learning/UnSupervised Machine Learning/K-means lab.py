@@ -1,16 +1,7 @@
 import numpy as np
 import matplotlib.pyplot as plt
 from utils import *
-
-
-"""Thuật toán Kmean
-def kMeans_init_centroids(X,K):
-    m = X.shape[0]
-    indices = np.radom.choices(m, K, replace = False)
-    centroids = X[indices]
-    return centroids
-    
-centroids = kMeans_init_centroids(X,K)"""
+import os 
 
 # tìm tâm cụm gần nhất(finding closest centroids)
 """ý tưởng bài toán: 
@@ -34,15 +25,6 @@ def find_closest_centroids(X, centroids):
         idx[i] = np.argmin(distance)
     return idx
 
-X = load_data()
-print("First five elements of X are:\n", X[:5])
-print("The shape of X is:", X.shape)
-
-initial_centroids = np.array([[3,3], [6,2], [8 ,5]])
-idx = find_closest_centroids(X, initial_centroids)
-
-print(idx[:7])
-
 #Compute centroid means(tính giá trị trung bình của các tâm cụm)
 # tức là tính giá trị trinh bình của các điểm dữ liệu đã được gán vào tâm cụm đó.
 
@@ -54,10 +36,6 @@ def compute_centroids(X, idx, K):
         points = X[idx == k] # danh sách điểm dữ liệu trong X được gán vào tâm cụm k
         centroids[k] = np.mean(points, axis=0)
     return centroids
-
-K = 3
-centroids = compute_centroids(X,idx,K)
-print("The centroids are:", centroids)
 
 def run_kMeans(X, initial_centroids, max_iters = 10, plot_progess = False):
     m,n = X.shape
@@ -82,14 +60,53 @@ def run_kMeans(X, initial_centroids, max_iters = 10, plot_progess = False):
     plt.show()
     return centroids, idx
 
-# sinh ngẫu nhiên centroids
-def kMeans_init_centroids(X, K):
-   
-    
-    # Randomly reorder the indices of examples
-    randidx = np.random.permutation(X.shape[0])
-    
-    # Take the first K examples as centroids
-    centroids = X[randidx[:K]]
-    
+def kMeans_init_centroids(X,K):
+    m = X.shape[0]
+    indices = np.random.choice(m, K, replace = False)
+    centroids = X[indices]
     return centroids
+
+
+
+
+original_img = plt.imread('File/bird_small.png')
+plt.imshow(original_img)
+plt.show()
+print("Shape of original_img is:", original_img.shape)
+
+"""Vì đầu vào thuật toán K-means là a matrix 2D trong đó mỗi hàng là một mẫu dữ liệu và mỗi cột là một đặc trưng
+   nên ta cần chuyển ảnh từ dạng matrix 3D 128x128x3 về dạng mx3 
+   trong đó m là tổng số pixel, có 3 đặc trưng là R,G,B"""
+
+X_img = np.reshape(original_img, (original_img.shape[0]*original_img.shape[1],3))
+
+K = 16          
+max_iters = 10  
+
+initial_centroids = kMeans_init_centroids(X_img, K)
+centroids, idx = run_kMeans(X_img, initial_centroids, max_iters=max_iters)
+
+# Tìm tâm cụm gần nhất cho các điểm dữ liệu(điểm ảnh)
+idx = find_closest_centroids(X_img, centroids)
+
+# Thay thế mỗi điểm ảnh bằng giá trị màu của centroid gần nhất tương ứng
+X_recovered = centroids[idx, :] 
+
+# Thay đổi kích thước của ảnh về như lúc ban đầu
+X_recovered = np.reshape(X_recovered, original_img.shape) 
+
+#  HIỂN THỊ KẾT QUẢ 
+# Display original image
+fig, ax = plt.subplots(1,2, figsize=(8,4))
+plt.axis('off')
+
+ax[0].imshow(original_img)
+ax[0].set_title('Original')
+ax[0].set_axis_off()
+
+
+# Display compressed image
+ax[1].imshow(X_recovered)
+ax[1].set_title('Compressed with %d colours'%K)
+ax[1].set_axis_off()
+plt.show()
