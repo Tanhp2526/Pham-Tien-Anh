@@ -1,5 +1,5 @@
 # LABS:
-1. Neural Networks for Handwritten Digit Recognition.
+# 1. Neural Networks for Handwritten Digit Recognition.
 ## Problem Statement(Mô tả bài toán)
 - Sử dụng một mạng lưới Noron để nhận dạng 10 chữ số viết tay, từ 0-9. 
 ## Dataset(Tập dữ liệu)
@@ -24,6 +24,7 @@ Training model: `Machine Learning/ Advanced Learning Algorithms/practice2.py`
 ## Predict: 
 - Sau khi ta đã traing model có thể dự đoán bức ảnh đó là số nào bằng cách sử dụng use Keras predict.
 
+# 2. Image compression with K-means
 
 # Python Learning 
 Chủ đề em đã làm
